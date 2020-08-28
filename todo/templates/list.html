@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+    <style>
+
+	body{
+		background-color: #bf80ff;
+
+	}
+	h1 {text-align: center;}
+
+	.submit{
+		background-color: #6BA3E8;
+	}
+li {
+  background: #bb94d1;
+  margin: 3px;
+  padding:auto;
+}
+
+    </style>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li><a class="nav-link" href="/profile">About</a></li>
+                {% if user.is_authenticated %}
+                <li>Welcome,{{user.username}}</li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                    {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+<body class="container">
+<div class="jumbotron">
+
+    <h1><i>TODO LIST</i></h1>
+    <hr/>
+
+    <div class="center-column">
+
+        <form method="POST">
+            {% csrf_token %}
+            {{form}}
+            <input class="btn btn-success" type="submit" value="Save"/>
+        </form>
+        <br>
+{% if tasks %}
+        <div class="todo">
+            {% for task in tasks %}
+            <div>
+                <p>{{ task.title }}</p>
+
+                    <a class="btn btn-sm btn-primary" href="{% url 'update' task.id %}">Update</a>
+                    <a class="btn btn-sm btn-danger" href="{% url 'delete' task.id %}">Delete</a>
+
+
+
+                {% endfor %}
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
