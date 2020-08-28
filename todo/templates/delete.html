@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete the Titles</title>
+</head>
+<body>
+<p>Are you sure you want to delete "{{thing}}"?</p>
+
+<a href="{% url 'list' %}" >Cancel</a>
+
+<form method="POST" action="">
+	{% csrf_token %}
+	<input type="Submit" name="Confirm">
+</form>
+</body>
+</html>
